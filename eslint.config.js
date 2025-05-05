@@ -26,6 +26,7 @@ export default [
       'vite-env.d.ts',
       'vite.config.ts',
       'vitest.config.ts',
+      '.stylelintrc.cjs',
     ],
   },
   {

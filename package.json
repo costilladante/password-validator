@@ -9,7 +9,9 @@
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "preview": "vite preview",
     "format": "prettier --write \"src/**/*.{ts,tsx,scss,json,md}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,scss,json,md}\""
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,scss,json,md}\"",
+    "stylelint": "stylelint \"src/**/*.{css,scss}\"",
+    "stylelint:fix": "stylelint \"src/**/*.{css,scss}\" --fix"
   },
   "dependencies": {
     "react": "^19.0.0",
@@ -34,6 +36,10 @@
     "globals": "^16.0.0",
     "prettier": "^3.5.3",
     "sass": "^1.87.0",
+    "stylelint": "^16.19.1",
+    "stylelint-config-prettier-scss": "^1.0.0",
+    "stylelint-config-standard-scss": "^14.0.0",
+    "stylelint-scss": "^6.11.1",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.26.1",
     "vite": "^6.3.1"
