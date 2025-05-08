@@ -1,38 +1,31 @@
-import { Rule } from '../types/types'
+import { FunctionRule, RegExpRule, RuleSet } from '../types/types'
 
 /**
     Check if the password has not consecutive characters
 
-    @param {string} password - The password to check
-    @returns {boolean} - True if the password has not consecutive characters, false otherwise
+    @param password - The password to check
+    @returns `true` if the password has not consecutive characters, `false` otherwise
 */
 const hasNotConsecutiveCharacters = (password: string) => {
+  if (!password || password.length < 3) return false
   const consecutiveCharacters = /(.)\1\1/
   return !consecutiveCharacters.test(password)
 }
 
 /**
- * Here we define the default rules
+ * Here the default rules are defined
  */
-export const defaultRules: Rule[] = [
-  {
-    name: 'specialChar',
-    message: 'Must include at least one special character (!@#$%^&*)',
-    validate: /[!@#$%^&*]/,
-  },
-  {
-    name: 'number',
-    message: 'Must include at least one number',
-    validate: /[0-9]/,
-  },
-  {
-    name: 'uppercase',
-    message: 'Must include at least one uppercase letter',
-    validate: /[A-Z]/,
-  },
-  {
-    name: 'noConsecutive',
-    message: 'Must not have three or more consecutive identical characters',
-    validate: hasNotConsecutiveCharacters,
-  },
-]
+export const defaultRules: RuleSet = new RuleSet([
+  new RegExpRule(
+    'specialChar',
+    'Must include at least one special character (!@#$%^&*)',
+    /[!@#$%^&*]/,
+  ),
+  new RegExpRule('number', 'Must include at least one number', /[0-9]/),
+  new RegExpRule('uppercase', 'Must include at least one uppercase letter', /[A-Z]/),
+  new FunctionRule(
+    'noConsecutive',
+    'Must not have three or more consecutive identical characters',
+    hasNotConsecutiveCharacters,
+  ),
+])

@@ -1,24 +1,22 @@
 import { useState } from 'react'
-import { validatePassword } from '../../validator'
-import { defaultRules } from '../../rules/defaultRules'
 import styles from './PasswordValidator.module.scss'
+import { RuleSet } from '../../types/types'
 
-const password = 'Test123'
-const error = validatePassword(password, defaultRules)
-
-if (error) {
-  // eslint-disable-next-line no-console
-  console.log('Password invalid:', error)
-} else {
-  // eslint-disable-next-line no-console
-  console.log('Password is valid!')
+interface PasswordValidatorProps {
+  ruleSet: RuleSet
 }
 
-const PasswordValidator = () => {
+const PasswordValidator = ({ ruleSet }: PasswordValidatorProps) => {
   const [value, setValue] = useState('')
   return (
     <div className={styles['password-validator']}>
       <input placeholder="set password" value={value} onChange={(e) => setValue(e.target.value)} />
+      {ruleSet.rules.map((rule) => (
+        <div key={rule.name}>
+          <span>{rule.message}</span>
+          <span>{rule.validate(value) ? '❌' : '✅'}</span>
+        </div>
+      ))}
     </div>
   )
 }

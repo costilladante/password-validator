@@ -71,7 +71,7 @@ export default [
       quotes: ['error', 'single', { avoidEscape: true }],
 
       'space-before-blocks': ['error', 'always'],
-      'space-before-function-paren': ['error', 'never'],
+      'space-before-function-paren': 0,
       'spaced-comment': ['error', 'always', { markers: ['/'] }],
       // React/TS/Prettier/Custom
       '@eslint-react/no-missing-key': 'error',
