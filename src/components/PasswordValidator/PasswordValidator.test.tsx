@@ -9,7 +9,7 @@ describe('PasswordValidator', () => {
   describe('rendering', () => {
     it('renders password input field', () => {
       render(<PasswordValidator ruleSet={defaultRules} />)
-      expect(screen.getByPlaceholderText(/set password/i)).toBeInTheDocument()
+      expect(screen.getByPlaceholderText(/Enter Password/i)).toBeInTheDocument()
     })
 
     it('renders all rule messages', () => {
@@ -25,7 +25,7 @@ describe('PasswordValidator', () => {
     it('updates input value on user type', async () => {
       const user = userEvent.setup()
       render(<PasswordValidator ruleSet={defaultRules} />)
-      const input = screen.getByPlaceholderText(/set password/i)
+      const input = screen.getByPlaceholderText(/Enter Password/i)
 
       await user.type(input, 'Test123!')
       expect(input).toHaveValue('Test123!')
@@ -34,11 +34,11 @@ describe('PasswordValidator', () => {
     it('updates rule validation status on input change', async () => {
       const user = userEvent.setup()
       render(<PasswordValidator ruleSet={defaultRules} />)
-      const input = screen.getByPlaceholderText(/set password/i)
+      const input = screen.getByPlaceholderText(/Enter Password/i)
 
       // Initial state - all rules should fail
       defaultRules.rules.forEach((rule) => {
-        expect(screen.getByText(rule.message).nextSibling).toHaveTextContent('❌')
+        expect(screen.getByText(rule.message).previousSibling).toHaveTextContent('❌')
       })
 
       // Type a valid password
@@ -46,8 +46,10 @@ describe('PasswordValidator', () => {
 
       // All rules should pass
       defaultRules.rules.forEach((rule) => {
-        expect(screen.getByText(rule.message).nextSibling).toHaveTextContent('✅')
+        expect(screen.getByText(rule.message).previousSibling).toHaveTextContent('✅')
       })
     })
   })
+
+  // * Idea: Test custom indicators
 })
