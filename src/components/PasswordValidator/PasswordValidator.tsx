@@ -1,8 +1,9 @@
 import clsx from 'clsx'
 import styles from './PasswordValidator.module.scss'
-import { RuleSet } from '../../types/types'
+import { RuleSet } from '../../types/ruleTypes'
 import { DEFAULT_INDICATORS } from '@/constants'
 import { usePasswordValidation } from '@/hooks'
+import { defaultRules } from '@/rules'
 
 interface PasswordValidatorProps {
   ruleSet: RuleSet
@@ -19,7 +20,7 @@ interface PasswordValidatorProps {
 }
 
 const PasswordValidator = ({
-  ruleSet,
+  ruleSet = defaultRules,
   indicators = DEFAULT_INDICATORS,
   className,
   inputClassName,
@@ -40,7 +41,6 @@ const PasswordValidator = ({
       aria-label="Password validator"
     >
       <div className={clsx(styles['password-validator-input'], inputClassName)}>
-        <label htmlFor={passwordInputId}>Password</label>
         <input
           id={passwordInputId}
           placeholder="Enter Password"

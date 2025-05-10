@@ -1,13 +1,14 @@
 import { defineConfig } from 'vitest/config'
-import path from 'path'
+import { resolve } from 'path'
 
 export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    setupFiles: ['./src/setupTests.ts'],
+    setupFiles: ['./src/__tests__/setupTests.ts'],
     coverage: {
-      reporter: ['text', 'html'],
+      provider: 'v8',
+      reporter: ['text', 'html', 'lcov'],
       exclude: [
         'node_modules/**',
         'dist/**',
@@ -15,25 +16,26 @@ export default defineConfig({
         '**/*.test.ts',
         '**/*.test.tsx',
         '**/setupTests.ts',
+        '**/index.ts',
       ],
       include: ['src/**/*.{ts,tsx}'],
       all: true,
       thresholds: {
-        statements: 0, // TODO: Set threshold to 80%
-        branches: 0, // TODO: Set threshold to 80%
-        functions: 0, // TODO: Set threshold to 80%
-        lines: 0, // TODO: Set threshold to 80%
+        statements: 80,
+        branches: 80,
+        functions: 80,
+        lines: 80,
       },
     },
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@components': path.resolve(__dirname, './src/components'),
-      '@rules': path.resolve(__dirname, './src/rules'),
-      '@types': path.resolve(__dirname, './src/types'),
-      '@constants': path.resolve(__dirname, './src/constants'),
-      '@hooks': path.resolve(__dirname, './src/hooks'),
+      '@': resolve(__dirname, './src'),
+      '@components': resolve(__dirname, './src/components'),
+      '@rules': resolve(__dirname, './src/rules'),
+      '@types': resolve(__dirname, './src/types'),
+      '@constants': resolve(__dirname, './src/constants'),
+      '@hooks': resolve(__dirname, './src/hooks'),
     },
   },
 })
