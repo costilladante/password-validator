@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import PasswordValidator from './PasswordValidator'
-import { defaultRules } from '../../rules/defaultRules'
+import { PasswordValidator } from '@components/PasswordValidator'
+import { defaultRules } from '@/rules'
 
 describe('PasswordValidator', () => {
   // Basic Rendering Tests
@@ -12,10 +12,11 @@ describe('PasswordValidator', () => {
       expect(screen.getByPlaceholderText(/Enter Password/i)).toBeInTheDocument()
     })
 
-    it('renders all rule messages', () => {
+    // Rules shouldn't be visible if the password is empty
+    it('does not render rules if password is empty', () => {
       render(<PasswordValidator ruleSet={defaultRules} />)
       defaultRules.rules.forEach((rule) => {
-        expect(screen.getByText(rule.message)).toBeInTheDocument()
+        expect(screen.queryByText(rule.message)).not.toBeInTheDocument()
       })
     })
   })
@@ -35,11 +36,6 @@ describe('PasswordValidator', () => {
       const user = userEvent.setup()
       render(<PasswordValidator ruleSet={defaultRules} />)
       const input = screen.getByPlaceholderText(/Enter Password/i)
-
-      // Initial state - all rules should fail
-      defaultRules.rules.forEach((rule) => {
-        expect(screen.getByText(rule.message).previousSibling).toHaveTextContent('❌')
-      })
 
       // Type a valid password
       await user.type(input, 'Test123!')

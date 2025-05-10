@@ -1,23 +1,3 @@
-// Sass variables for internal use
-
-// Gaps
-$gap-normal: 1rem;
-$gap-sm: 0.5rem;
-
-// Paddings
-$padding-h3-v7: 0.3rem 0.7rem;
-
-// Breakpoints
-$breakpoint-tablet: 768px;
-$input-width: 300px;
-
-// Border
-$border-width: 1px;
-
-// Transition
-$transition-duration: 0.3s;
-
-// ===============================
 // CSS variables for user customization
 :root {
   // Password Validator Input Variables
@@ -30,4 +10,6 @@ $transition-duration: 0.3s;
   --password-validator-indicator-font-family: system-ui, -apple-system, sans-serif;
   --password-validator-indicator-font-size: 0.75rem;
   --password-validator-indicator-padding: 0rem 0.5rem;
+  --password-validator-indicator-valid-color: #059669;
+  --password-validator-indicator-invalid-color: #dc2626;
 }

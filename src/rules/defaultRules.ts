@@ -1,4 +1,4 @@
-import { FunctionRule, RegExpRule, RuleSet } from '../types/types'
+import { FunctionRule, RegExpRule, RuleSet } from '@/types'
 
 /**
     Check if the password has not consecutive characters

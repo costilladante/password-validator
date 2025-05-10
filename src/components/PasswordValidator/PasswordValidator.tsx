@@ -1,11 +1,8 @@
-import { useState } from 'react'
+import clsx from 'clsx'
 import styles from './PasswordValidator.module.scss'
 import { RuleSet } from '../../types/types'
-
-const DEFAULT_INDICATORS = {
-  valid: '✅',
-  invalid: '❌',
-}
+import { DEFAULT_INDICATORS } from '@/constants'
+import { usePasswordValidation } from '@/hooks'
 
 interface PasswordValidatorProps {
   ruleSet: RuleSet
@@ -29,23 +26,30 @@ const PasswordValidator = ({
   indicatorsClassName,
   indicatorItemClassName,
 }: PasswordValidatorProps) => {
-  const [value, setValue] = useState('')
+  const { inputValue, validationResults, changeInputChange } = usePasswordValidation(ruleSet)
   return (
-    <div className={`${styles['password-validator-container']} ${className || ''}`}>
-      <div className={`${styles['password-validator-input']} ${inputClassName || ''}`}>
+    <div className={clsx(styles['password-validator-container'], className)}>
+      <div className={clsx(styles['password-validator-input'], inputClassName)}>
         <input
           placeholder="Enter Password"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
+          value={inputValue}
+          onChange={(e) => changeInputChange(e.target.value)}
         />
       </div>
-      <div className={`${styles['password-validator-indicators']} ${indicatorsClassName || ''}`}>
-        {ruleSet.rules.map((rule) => (
+      <div className={clsx(styles['password-validator-indicators'], indicatorsClassName)}>
+        {validationResults.map(({ rule, isValid }) => (
           <div
             key={rule.name}
-            className={`${styles['password-validator-indicator-item']} ${indicatorItemClassName || ''}`}
+            className={clsx(
+              styles['password-validator-indicator-item'],
+              {
+                [styles['is-valid']]: isValid,
+                [styles['is-invalid']]: !isValid,
+              },
+              indicatorItemClassName,
+            )}
           >
-            <span>{rule.validate(value) ? indicators.invalid : indicators.valid}</span>
+            <span>{isValid ? indicators.valid : indicators.invalid}</span>
             <span>{rule.message}</span>
           </div>
         ))}
