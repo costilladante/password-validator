@@ -1,0 +1,28 @@
+# Development files
+.git/
+.github/
+.vscode/
+coverage/
+*.tsbuildinfo
+
+# Build files
+src/
+*.config.js
+*.config.ts
+tsconfig*.json
+vite.config.ts
+vitest.config.ts
+vite.config.d.ts
+vitest.config.d.ts
+
+# Development tools
+.eslintrc*
+.prettierrc*
+.stylelintrc*
+.husky/
+.editorconfig
+
+# Other
+*.d.ts.map
+.DS_Store
+*.log

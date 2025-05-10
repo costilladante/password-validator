@@ -1,4 +1,4 @@
-import { FunctionRule, RegExpRule, RuleSet } from '../types/types'
+import { FunctionRule, RegExpRule, RuleSet } from '@/types'
 
 /**
     Check if the password has not consecutive characters
@@ -7,7 +7,6 @@ import { FunctionRule, RegExpRule, RuleSet } from '../types/types'
     @returns `true` if the password has not consecutive characters, `false` otherwise
 */
 const hasNotConsecutiveCharacters = (password: string) => {
-  if (!password || password.length < 3) return false
   const consecutiveCharacters = /(.)\1\1/
   return !consecutiveCharacters.test(password)
 }

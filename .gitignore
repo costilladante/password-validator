@@ -24,3 +24,7 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# Config files
+vite.config.d.ts
+vitest.config.d.ts
