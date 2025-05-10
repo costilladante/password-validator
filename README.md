@@ -1,5 +1,12 @@
 # React Password Validator
 
+[![npm version](https://img.shields.io/npm/v/@costilladante/password-validator.svg)](https://www.npmjs.com/package/@costilladante/password-validator)
+[![npm bundle size](https://img.shields.io/bundlephobia/min/@costilladante/password-validator)](https://bundlephobia.com/package/@costilladante/password-validator)
+[![npm downloads](https://img.shields.io/npm/dm/@costilladante/password-validator)](https://www.npmjs.com/package/@costilladante/password-validator)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-18+-61DAFB?logo=react)](https://reactjs.org/)
+
 A customizable React password validator component with accessibility features.
 
 ## Features
