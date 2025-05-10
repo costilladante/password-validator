@@ -1,7 +1,7 @@
 {
   "name": "@costilladante/password-validator",
   "description": "A customizable React password validator component with accessibility features",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "type": "module",
   "main": "./dist/password-validator.umd.js",
   "module": "./dist/password-validator.es.js",
