@@ -3,11 +3,7 @@
 .github/
 .vscode/
 coverage/
-__tests__/
-*.test.ts
-*.test.tsx
-*.spec.ts
-*.spec.tsx
+*.tsbuildinfo
 
 # Build files
 src/
@@ -16,6 +12,8 @@ src/
 tsconfig*.json
 vite.config.ts
 vitest.config.ts
+vite.config.d.ts
+vitest.config.d.ts
 
 # Development tools
 .eslintrc*
@@ -25,5 +23,6 @@ vitest.config.ts
 .editorconfig
 
 # Other
+*.d.ts.map
 .DS_Store
 *.log

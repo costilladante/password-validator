@@ -2,11 +2,16 @@
   "compilerOptions": {
     "declaration": true,
     "emitDeclarationOnly": true,
+    "declarationMap": true,
+    "sourceMap": true,
     "outDir": "dist",
     "rootDir": "src",
+    "module": "ESNext",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
@@ -28,31 +33,3 @@
     "src/__tests__/**"
   ]
 }
-// {
-//   "extends": "./tsconfig.json",
-//   "compilerOptions": {
-//     "composite": true,
-//     "declaration": true,
-//     "declarationMap": true,
-//     "sourceMap": true,
-//     "outDir": "dist",
-//     "rootDir": "src",
-//     "module": "ESNext",
-//     "moduleResolution": "bundler",
-//     "allowImportingTsExtensions": false,
-//     "emitDeclarationOnly": true,
-//     "isolatedModules": true,
-//     "skipLibCheck": true,
-//     "jsx": "react-jsx"
-//   },
-//   // "include": ["src/**/*.ts", "src/**/*.tsx"],
-//   "include": ["src"],
-//   "exclude": [
-//     "**/*.test.ts",
-//     "**/*.test.tsx",
-//     "**/__tests__/**",
-//     "**/__mocks__/**",
-//     "**/*.spec.ts",
-//     "**/*.spec.tsx"
-//   ]
-// }
