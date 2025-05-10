@@ -8,10 +8,16 @@ interface ValidationResult {
 
 export const usePasswordValidation = (ruleSet: RuleSet) => {
   const [inputValue, setInputValue] = useState('')
-  const [validationResults, setValidationResults] = useState<ValidationResult[]>([])
+  const [validationResults, setValidationResults] = useState<ValidationResult[]>(
+    ruleSet.rules.map((rule) => ({ rule, isValid: false })),
+  )
 
   const validate = useCallback(
     (password: string) => {
+      if (password.length === 0) {
+        setValidationResults(ruleSet.rules.map((rule) => ({ rule, isValid: false })))
+        return false
+      }
       const results = ruleSet.rules.map((rule) => ({
         rule,
         isValid: rule.validate(password) === null,

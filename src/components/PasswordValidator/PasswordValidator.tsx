@@ -27,32 +27,68 @@ const PasswordValidator = ({
   indicatorItemClassName,
 }: PasswordValidatorProps) => {
   const { inputValue, validationResults, changeInputChange } = usePasswordValidation(ruleSet)
+
+  // Check if any rules are invalid
+  const hasInvalidRules = validationResults.some((result) => !result.isValid)
+
+  const passwordInputId = 'password-input'
+  const passwordValidationListId = 'password-validation-list'
+
   return (
-    <div className={clsx(styles['password-validator-container'], className)}>
+    <div
+      className={clsx(styles['password-validator-container'], className)}
+      aria-label="Password validator"
+    >
       <div className={clsx(styles['password-validator-input'], inputClassName)}>
+        <label htmlFor={passwordInputId}>Password</label>
         <input
+          id={passwordInputId}
           placeholder="Enter Password"
           value={inputValue}
           onChange={(e) => changeInputChange(e.target.value)}
+          tabIndex={0}
+          aria-label="Enter Password"
+          aria-describedby={inputValue ? passwordValidationListId : undefined}
+          aria-invalid={hasInvalidRules}
         />
       </div>
-      <div className={clsx(styles['password-validator-indicators'], indicatorsClassName)}>
-        {validationResults.map(({ rule, isValid }) => (
-          <div
-            key={rule.name}
-            className={clsx(
-              styles['password-validator-indicator-item'],
-              {
-                [styles['is-valid']]: isValid,
-                [styles['is-invalid']]: !isValid,
-              },
-              indicatorItemClassName,
-            )}
+
+      {/* Live region to announce the rules */}
+      <div
+        id="password-rules"
+        className="password-validator-rules"
+        role="region"
+        aria-live="polite"
+      >
+        {inputValue && (
+          <ul
+            id={passwordValidationListId}
+            className={clsx(styles['password-validator-list'], indicatorsClassName)}
           >
-            <span>{isValid ? indicators.valid : indicators.invalid}</span>
-            <span>{rule.message}</span>
-          </div>
-        ))}
+            {validationResults.map(({ rule, isValid }, index) => (
+              <li
+                id={`rule-${index}`}
+                key={rule.name} // * IDEA: Use rule.id as key
+                className={clsx(
+                  styles['password-validator-list-item'],
+                  {
+                    [styles['is-valid']]: isValid,
+                    [styles['is-invalid']]: !isValid,
+                  },
+                  indicatorItemClassName,
+                )}
+                // ? Alternative aria-label: it was too long to narrate.
+                // aria-label={`${rule.message} - ${isValid ? 'Valid' : 'Invalid'}`}
+                aria-label={`${isValid ? 'Valid' : 'Invalid'}`}
+              >
+                <span aria-hidden="true" role="img" aria-label={isValid ? 'Valid' : 'Invalid'}>
+                  {isValid ? indicators.valid : indicators.invalid}
+                </span>
+                <span>{rule.message}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   )
