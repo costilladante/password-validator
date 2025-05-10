@@ -21,6 +21,7 @@ export default [
       'dist',
       'build',
       'node_modules',
+      '*.d.ts',
       '*.config.js',
       '*.config.cjs',
       'vite-env.d.ts',
