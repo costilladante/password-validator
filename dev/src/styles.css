@@ -1,0 +1,26 @@
+/* Development-specific styles */
+.custom-input {
+  border: 2px solid #ccc;
+  padding: 8px;
+  border-radius: 4px;
+
+  &:focus {
+    border-color: #342b5d;
+    outline: none;
+  }
+}
+
+.custom-container {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.custom-indicator {
+  padding: 0.5rem;
+  border-radius: 6px;
+  background-color: #b6b3d4;
+  margin-bottom: 0.5rem;
+  color: #342b5d;
+  font-weight: bold;
+}

@@ -5,6 +5,8 @@ import { resolve } from 'path'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  root: process.env.NODE_ENV === 'development' ? 'dev' : undefined,
+  publicDir: 'public',
   build: {
     lib: {
       // Entry point for the library

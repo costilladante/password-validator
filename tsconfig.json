@@ -33,7 +33,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"],
+  "include": ["src", "dev"],
   "files": [],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
