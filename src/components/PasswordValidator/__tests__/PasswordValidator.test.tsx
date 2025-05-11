@@ -26,27 +26,37 @@ describe('PasswordValidator', () => {
       expect(screen.getByRole('region')).toBeInTheDocument()
     })
 
-    it('applies custom class names', () => {
+    it('applies custom class names', async () => {
+      const user = userEvent.setup()
+
       const customClass = 'custom-class'
       const customInputClass = 'custom-input'
-      const customIndicatorsClass = 'custom-indicators'
-      const customIndicatorItemClass = 'custom-indicator-item'
+      const customIndicatorClass = 'custom-indicator'
 
       render(
         <PasswordValidator
           ruleSet={defaultRules}
           className={customClass}
           inputClassName={customInputClass}
-          indicatorsClassName={customIndicatorsClass}
-          indicatorItemClassName={customIndicatorItemClass}
+          indicatorClassName={customIndicatorClass}
         />,
       )
 
-      const container = screen.getByPlaceholderText(/Enter Password/i).closest('div')?.parentElement
+      const input = screen.getByPlaceholderText(/Enter Password/i)
+      await user.type(input, 'test')
+
+      // Check container class
+      const container = screen.getByLabelText('Password validator')
       expect(container).toHaveClass(customClass)
-      expect(screen.getByPlaceholderText(/Enter Password/i).parentElement).toHaveClass(
-        customInputClass,
-      )
+
+      // Check input class
+      expect(input).toHaveClass(customInputClass)
+
+      // Check indicator classes
+      const listItems = screen.getAllByRole('listitem')
+      listItems.forEach((item) => {
+        expect(item).toHaveClass(customIndicatorClass)
+      })
     })
   })
 
@@ -118,8 +128,11 @@ describe('PasswordValidator', () => {
       const input = screen.getByPlaceholderText(/Enter Password/i)
       await user.type(input, 'test')
 
-      const firstIndicator = screen.getByText(defaultRules.rules[0].message).previousSibling
-      expect(firstIndicator).toHaveTextContent(customIndicators.invalid)
+      const validationItems = screen.getAllByRole('listitem')
+      validationItems.forEach((item) => {
+        const indicator = item.querySelector('[role="img"]')
+        expect(indicator).toHaveAttribute('aria-label', expect.stringMatching(/Valid|Invalid/))
+      })
     })
   })
 })
