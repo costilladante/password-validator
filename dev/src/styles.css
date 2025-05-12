@@ -1,8 +1,9 @@
 /* Development-specific styles */
 .custom-input {
   border: 2px solid #ccc;
-  padding: 8px;
+  padding: 12px;
   border-radius: 4px;
+  padding-right: 2.5rem;
 
   &:focus {
     border-color: #342b5d;

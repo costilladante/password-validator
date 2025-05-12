@@ -46,7 +46,7 @@ describe('PasswordValidator', () => {
       await user.type(input, 'test')
 
       // Check container class
-      const container = screen.getByLabelText('Password validator')
+      const container = screen.getByRole('group')
       expect(container).toHaveClass(customClass)
 
       // Check input class

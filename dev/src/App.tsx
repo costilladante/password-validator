@@ -9,7 +9,7 @@ const App = () => (
 
     <div style={{ marginBottom: '2rem' }}>
       <h2>Basic Usage</h2>
-      <PasswordValidator ruleSet={defaultRules} />
+      <PasswordValidator />
     </div>
 
     <div style={{ marginBottom: '2rem' }}>
