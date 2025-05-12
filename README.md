@@ -138,16 +138,41 @@ You can easily customize the component.
 />
 ```
 
+### Advanced Usage
+
+```tsx
+<PasswordValidator
+  ruleSet={defaultRules}
+  showToggle={true}
+  indicators={{
+    valid: '✓',
+    invalid: '✗',
+  }}
+  onValidationChange={(isValid, results) => {
+    console.log('Password is valid:', isValid)
+    console.log('Validation results:', results)
+  }}
+  onValueChange={(value) => {
+    console.log('Password value:', value)
+  }}
+  className="my-container"
+  inputClassName="my-input"
+  indicatorClassName="my-indicator"
+/>
+```
+
 ## 🛠️ Props
 
-| Prop                       | Type                                                   | Required | Default                        | Description           |
-| -------------------------- | ------------------------------------------------------ | -------- | ------------------------------ | --------------------- |
-| **ruleSet**                | RuleSet                                                | Yes      | -                              | Your password rules   |
-| **indicators**             | { valid?: React.ReactNode, invalid?: React.ReactNode } | No       | { valid: '✅', invalid: '❌' } | Custom checkmarks     |
-| **className**              | string                                                 | No       | -                              | Container class       |
-| **inputClassName**         | string                                                 | No       | -                              | Input field class     |
-| **indicatorsClassName**    | string                                                 | No       | -                              | Rules list class      |
-| **indicatorItemClassName** | string                                                 | No       | -                              | Individual rule class |
+| Prop                   | Type                                                    | Required | Default                        | Description                                    |
+| ---------------------- | ------------------------------------------------------- | -------- | ------------------------------ | ---------------------------------------------- |
+| **ruleSet**            | RuleSet                                                 | No       | defaultRules                   | Your password rules                            |
+| **showToggle**         | boolean                                                 | No       | true                           | Whether to show the password visibility toggle |
+| **indicators**         | { valid?: React.ReactNode, invalid?: React.ReactNode }  | No       | { valid: '✅', invalid: '❌' } | Custom checkmarks                              |
+| **onValidationChange** | (isValid: boolean, results: ValidationResult[]) => void | No       | -                              | Callback when validation state changes         |
+| **onValueChange**      | (value: string) => void                                 | No       | -                              | Callback when password value changes           |
+| **className**          | string                                                  | No       | -                              | Container class                                |
+| **inputClassName**     | string                                                  | No       | -                              | Input field class                              |
+| **indicatorClassName** | string                                                  | No       | -                              | Class for validation indicator items           |
 
 ## 🎨 Styling
 
