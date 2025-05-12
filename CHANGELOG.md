@@ -5,7 +5,41 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.0] - MVP 2024-03-19
+## [1.0.0] - 05/12/2025
+
+### Added
+
+- First stable release
+- Complete documentation with examples
+- NPM package publication
+- GitHub releases support
+- Comprehensive README with installation and usage instructions
+- Development environment setup guide
+- Styling examples and customization options
+- TypeScript type definitions
+- Default password rules implementation
+- Function and RegExp-based rule support
+
+### Changed
+
+- Improved component structure and organization
+- Enhanced accessibility features
+- Better TypeScript type definitions
+- More flexible styling system
+- Improved test coverage
+
+### Technical Details
+
+- React 18+ support
+- TypeScript implementation
+- SASS/SCSS styling with CSS Modules
+- Vite build system
+- Vitest testing framework
+- ESLint (Airbnb) and Stylelint configuration
+- Prettier code formatting
+- Husky and lint-staged for Git hooks
+
+## [0.1.0] - MVP 05/10/2025
 
 ### Added
 
