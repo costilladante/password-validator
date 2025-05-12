@@ -1,5 +1,6 @@
 export { PasswordValidator } from './components'
-export type { RuleSet } from './types'
+export { RuleSet, RegExpRule, FunctionRule } from './types'
+export type { ValidationResult } from './hooks/usePasswordValidation'
 export { defaultRules } from './rules'
 export { DEFAULT_INDICATORS } from './constants'
 import './sass/index.scss'
