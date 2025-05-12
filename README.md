@@ -7,7 +7,9 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-18+-61DAFB?logo=react)](https://reactjs.org/)
 
-> See this project in action in this [Live Demo](https://password-validator-demo.vercel.app/)!
+> You can see this component in action in this [Live Demo](https://password-validator-demo.vercel.app/)!
+
+> Or you can try just the component alone on [StackBlitz ⚡](https://stackblitz.com/edit/vitejs-vite-spsnbwzv?file=src%2FApp.tsx)
 
 A customizable React password validator component with accessibility features.
 
