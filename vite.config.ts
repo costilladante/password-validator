@@ -5,6 +5,8 @@ import { resolve } from 'path'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  root: process.env.NODE_ENV === 'development' ? 'dev' : undefined,
+  publicDir: 'public',
   build: {
     lib: {
       // Entry point for the library
@@ -40,12 +42,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
-      '@components': resolve(__dirname, './src/components'),
-      '@rules': resolve(__dirname, './src/rules'),
-      '@types': resolve(__dirname, './src/types'),
-      '@constants': resolve(__dirname, './src/constants'),
-      '@hooks': resolve(__dirname, './src/hooks'),
-      '@sass': resolve(__dirname, './src/sass'),
     },
   },
 })

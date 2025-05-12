@@ -1,69 +1,97 @@
 import clsx from 'clsx'
-import styles from './PasswordValidator.module.scss'
-import { RuleSet } from '../../types/ruleTypes'
 import { DEFAULT_INDICATORS } from '@/constants'
-import { usePasswordValidation } from '@/hooks'
 import { defaultRules } from '@/rules'
+import { RuleSet } from '@/types'
+import { usePasswordValidation } from '@/hooks'
+import { ValidationResult } from '@/hooks/usePasswordValidation'
+
+import styles from './PasswordValidator.module.scss'
 
 interface PasswordValidatorProps {
-  ruleSet: RuleSet
+  ruleSet?: RuleSet
+  showToggle?: boolean
   indicators?: {
     valid?: React.ReactNode
     invalid?: React.ReactNode
   }
 
+  // Callbacks
+  onValidationChange?: (isValid: boolean, results: ValidationResult[]) => void
+  onValueChange?: (value: string) => void
+
   // ClassName props for customization
   className?: string
   inputClassName?: string
-  indicatorsClassName?: string
-  indicatorItemClassName?: string
+  indicatorClassName?: string
 }
+
+const BASE_CLASS = 'password-validator'
 
 const PasswordValidator = ({
   ruleSet = defaultRules,
+  showToggle = true,
   indicators = DEFAULT_INDICATORS,
+  onValidationChange,
+  onValueChange,
   className,
   inputClassName,
-  indicatorsClassName,
-  indicatorItemClassName,
+  indicatorClassName,
 }: PasswordValidatorProps) => {
-  const { inputValue, validationResults, changeInputChange } = usePasswordValidation(ruleSet)
-
-  // Check if any rules are invalid
-  const hasInvalidRules = validationResults.some((result) => !result.isValid)
+  const {
+    inputValue,
+    validationResults,
+    isPasswordVisible,
+    hasInvalidRules,
+    changeInputChange,
+    togglePasswordVisibility,
+  } = usePasswordValidation(ruleSet, onValidationChange, onValueChange)
 
   const passwordInputId = 'password-input'
   const passwordValidationListId = 'password-validation-list'
+  const toggleButtonId = 'password-toggle'
 
   return (
-    <div
-      className={clsx(styles['password-validator-container'], className)}
-      aria-label="Password validator"
-    >
-      <div className={clsx(styles['password-validator-input'], inputClassName)}>
+    <div className={clsx(styles[`${BASE_CLASS}-container`], className)} role="group">
+      <div className={styles[`${BASE_CLASS}-input-wrapper`]}>
         <input
           id={passwordInputId}
+          className={clsx(styles[`${BASE_CLASS}-input`], inputClassName)}
           placeholder="Enter Password"
+          type={isPasswordVisible ? 'text' : 'password'}
           value={inputValue}
           onChange={(e) => changeInputChange(e.target.value)}
           tabIndex={0}
           aria-label="Enter Password"
           aria-describedby={inputValue ? passwordValidationListId : undefined}
           aria-invalid={hasInvalidRules}
+          aria-required="true"
         />
+        {showToggle && (
+          <button
+            id={toggleButtonId}
+            type="button"
+            className={styles[`${BASE_CLASS}-toggle`]}
+            onClick={togglePasswordVisibility}
+            aria-label={isPasswordVisible ? 'Hide password' : 'Show password'}
+            aria-pressed={isPasswordVisible}
+          >
+            {isPasswordVisible ? '👁️' : '👁️‍🗨️'}
+          </button>
+        )}
       </div>
-
       {/* Live region to announce the rules */}
       <div
         id="password-rules"
-        className="password-validator-rules"
+        className={styles[`${BASE_CLASS}-rules`]}
         role="region"
         aria-live="polite"
+        aria-relevant="additions removals"
       >
         {inputValue && (
           <ul
             id={passwordValidationListId}
-            className={clsx(styles['password-validator-list'], indicatorsClassName)}
+            className={styles[`${BASE_CLASS}-list`]}
+            aria-label="Password requirements"
           >
             {validationResults.map(({ rule, isValid }, index) => (
               <li
@@ -75,16 +103,14 @@ const PasswordValidator = ({
                     [styles['is-valid']]: isValid,
                     [styles['is-invalid']]: !isValid,
                   },
-                  indicatorItemClassName,
+                  indicatorClassName,
                 )}
-                // ? Alternative aria-label: it was too long to narrate.
-                // aria-label={`${rule.message} - ${isValid ? 'Valid' : 'Invalid'}`}
                 aria-label={`${isValid ? 'Valid' : 'Invalid'}`}
               >
                 <span aria-hidden="true" role="img" aria-label={isValid ? 'Valid' : 'Invalid'}>
                   {isValid ? indicators.valid : indicators.invalid}
                 </span>
-                <span>{rule.message}</span>
+                <span className={styles[`${BASE_CLASS}-list-item-message`]}>{rule.message}</span>
               </li>
             ))}
           </ul>
