@@ -42,12 +42,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
-      '@components': resolve(__dirname, './src/components'),
-      '@rules': resolve(__dirname, './src/rules'),
-      '@types': resolve(__dirname, './src/types'),
-      '@constants': resolve(__dirname, './src/constants'),
-      '@hooks': resolve(__dirname, './src/hooks'),
-      '@sass': resolve(__dirname, './src/sass'),
     },
   },
 })

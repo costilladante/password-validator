@@ -1,10 +1,11 @@
 import clsx from 'clsx'
-import styles from './PasswordValidator.module.scss'
-import { RuleSet } from '../../types/ruleTypes'
 import { DEFAULT_INDICATORS } from '@/constants'
-import { usePasswordValidation } from '@/hooks'
 import { defaultRules } from '@/rules'
-import { useState } from 'react'
+import { RuleSet } from '@/types'
+import { usePasswordValidation } from '@/hooks'
+import { ValidationResult } from '@/hooks/usePasswordValidation'
+
+import styles from './PasswordValidator.module.scss'
 
 interface PasswordValidatorProps {
   ruleSet?: RuleSet
@@ -13,6 +14,10 @@ interface PasswordValidatorProps {
     valid?: React.ReactNode
     invalid?: React.ReactNode
   }
+
+  // Callbacks
+  onValidationChange?: (isValid: boolean, results: ValidationResult[]) => void
+  onValueChange?: (value: string) => void
 
   // ClassName props for customization
   className?: string
@@ -26,32 +31,24 @@ const PasswordValidator = ({
   ruleSet = defaultRules,
   showToggle = true,
   indicators = DEFAULT_INDICATORS,
+  onValidationChange,
+  onValueChange,
   className,
   inputClassName,
   indicatorClassName,
 }: PasswordValidatorProps) => {
-  // Let the user know that they didn't provide a ruleSet
-  if (import.meta.env.DEV && !ruleSet) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      'PasswordValidator: No ruleSet provided. Using default rules. ' +
-        'Consider providing your own rules for better security.',
-    )
-  }
-
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-  const { inputValue, validationResults, changeInputChange } = usePasswordValidation(ruleSet)
-
-  // Check if any rules are invalid
-  const hasInvalidRules = validationResults.some((result) => !result.isValid)
+  const {
+    inputValue,
+    validationResults,
+    isPasswordVisible,
+    hasInvalidRules,
+    changeInputChange,
+    togglePasswordVisibility,
+  } = usePasswordValidation(ruleSet, onValidationChange, onValueChange)
 
   const passwordInputId = 'password-input'
   const passwordValidationListId = 'password-validation-list'
   const toggleButtonId = 'password-toggle'
-
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible((prev) => !prev)
-  }
 
   return (
     <div className={clsx(styles[`${BASE_CLASS}-container`], className)} role="group">

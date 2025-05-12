@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { PasswordValidator } from '@components/PasswordValidator'
+import { PasswordValidator } from '@/components'
 import { defaultRules } from '@/rules'
 
 describe('PasswordValidator', () => {
@@ -133,6 +133,53 @@ describe('PasswordValidator', () => {
         const indicator = item.querySelector('[role="img"]')
         expect(indicator).toHaveAttribute('aria-label', expect.stringMatching(/Valid|Invalid/))
       })
+    })
+  })
+
+  // Toggle Button and Validation List Tests
+  describe('toggle button', () => {
+    it('does not render the toggle button when showToggle is false', () => {
+      render(<PasswordValidator ruleSet={defaultRules} showToggle={false} />)
+      expect(
+        screen.queryByRole('button', { name: /show password|hide password/i }),
+      ).not.toBeInTheDocument()
+    })
+
+    it('renders the toggle button when showToggle is true', () => {
+      render(<PasswordValidator ruleSet={defaultRules} showToggle={true} />)
+
+      expect(
+        screen.getByRole('button', { name: /show password|hide password/i }),
+      ).toBeInTheDocument()
+    })
+  })
+
+  it('sets the correct aria-label on the toggle button', async () => {
+    const user = userEvent.setup()
+    render(<PasswordValidator ruleSet={defaultRules} />)
+
+    // Initially, password is shown, so label should be "Hide password"
+    const toggleButton = screen.getByRole('button', { name: /hide password/i })
+    expect(toggleButton).toHaveAttribute('aria-label', 'Hide password')
+
+    // Click to hide password
+    await user.click(toggleButton)
+    // Now, password is hidden, so label should be "Show password"
+    expect(toggleButton).toHaveAttribute('aria-label', 'Show password')
+  })
+
+  describe('validation list', () => {
+    it('does not render the validation list when input is empty', () => {
+      render(<PasswordValidator ruleSet={defaultRules} />)
+      expect(screen.queryByRole('list')).not.toBeInTheDocument()
+    })
+
+    it('renders the validation list when input has value', async () => {
+      const user = userEvent.setup()
+      render(<PasswordValidator ruleSet={defaultRules} />)
+      const input = screen.getByPlaceholderText(/Enter Password/i)
+      await user.type(input, 'test')
+      expect(screen.getByRole('list')).toBeInTheDocument()
     })
   })
 })
